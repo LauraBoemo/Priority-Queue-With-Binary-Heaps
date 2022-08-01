@@ -1,20 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "listaPriorizada.h"
 
 int main() {
-  EstruturaDoHeap* h;
-  h = inicializarHeap();
-
-  inserirNoHeap(h, 3);
-  inserirNoHeap(h, 4);
-  inserirNoHeap(h, 9);
-  inserirNoHeap(h, 5);
-  inserirNoHeap(h, 2);
-
-  printf("Max-Heap: ");
-  imprimirHeap(h);
-
-  removerElementoDoHeap(h, 4);
-  printf("Deletando um elemento: ");
-  imprimirHeap(h);
+    EstruturaDoHeap* h;
+    h = inicializarHeap();
+    
+    int repostaUsuario = 1;
+  
+    while (repostaUsuario != 4) {
+        printf("O que desejas fazer?\n\n1. Inserir valor no Heap.\n2. Remover valor do Heap.\n3. Imprimir o Heap\n4. Sair do Programa\n\nDigite o numero desejado: ");
+        scanf("%i", &repostaUsuario);
+        rotearFuncoes(h, repostaUsuario);
+    } 
+    
+    free(h);
+    system("PAUSE");
+    return 1;
 }

@@ -2,7 +2,35 @@
 #include <stdlib.h>
 #include "listaPriorizada.h"
 
-int size = 0;
+void rotearFuncoes(EstruturaDoHeap* h, int repostaUsuario) {
+    int valor = 0;
+    
+    switch(repostaUsuario) {
+        case 1:
+            printf("\nInforme o valor que desejas inserir: ");
+            scanf("%i", &valor);
+            inserirNoHeap(h, valor);
+            printf("\n\n");
+            break;
+        case 2: 
+            printf("\nInforme o valor que desejas remover: ");
+            scanf("%i", &valor);
+            removerElementoDoHeap(h, valor);
+            printf("\n\n");
+            break;
+        case 3: 
+            printf("\n");
+            imprimirHeap(h);
+            printf("\n\n");
+            break;
+        case 4: 
+            printf("\nO programa foi encerrado.");
+            break;
+        default:
+            printf("\nInsira um valor valido!\n\n");
+            break;
+    }
+}
 
 EstruturaDoHeap* inicializarHeap() {
     EstruturaDoHeap* h = (EstruturaDoHeap*) malloc(sizeof(EstruturaDoHeap));
@@ -37,7 +65,7 @@ void ordenarHeap(EstruturaDoHeap* h, int i) {
 
 void inserirNoHeap(EstruturaDoHeap* h, int newNum) {
   if (h->size != 0) {
-    for (int i = h->size; i >= 0; i--) {
+    for (int i = h->size - 1; i >= 0; i--) {
       ordenarHeap(h, i);
     }
   }
@@ -48,21 +76,34 @@ void inserirNoHeap(EstruturaDoHeap* h, int newNum) {
 
 void removerElementoDoHeap(EstruturaDoHeap* h, int num) {
   int i;
-  for (int i = 0; i < h->size; i++) {
+  for (i = 0; i < h->size; i++) {
     if (num == h->heaparray[i])
       break;
   }
 
-  trocarElementos(&h->heaparray[i], &h->heaparray[size - 1]);
+  trocarElementos(&h->heaparray[i], &h->heaparray[h->size - 1]);
   h->size -= 1;
-  for (int i = h->size; i >= 0; i--) {
+  for (int i = h->size - 1; i >= 0; i--) {
     ordenarHeap(h, i);
   }
 }
 
 
 void imprimirHeap(EstruturaDoHeap* h) {
-  for (int i = 0; i < h->size; ++i)
-    printf("%d ", h->heaparray[i]);
-  printf("\n");
+    int contadorLinhas = 2, auxContador = 0;
+    
+    for (int i = 0; i < h->size; ++i) {
+        if(i == 0) {
+            printf("%d\n\n", h->heaparray[i]);
+        } else {
+            printf("%d ", h->heaparray[i]);
+            auxContador += 1;
+        }
+        
+        if(auxContador == contadorLinhas) {
+            printf("\n\n");
+            contadorLinhas = contadorLinhas * 2 + contadorLinhas;
+        }
+    }
+    printf("\n");
 }
