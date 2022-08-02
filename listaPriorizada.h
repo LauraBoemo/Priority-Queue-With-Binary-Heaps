@@ -13,4 +13,5 @@ void inserirNoHeap(EstruturaDoHeap* h, int newNum);
 void ordenarHeap(EstruturaDoHeap* h, int i);
 void trocarElementos(int *a, int *b);
 void removerElementoDoHeap(EstruturaDoHeap* h, int num);
+void imprimirArray(EstruturaDoHeap* h);
 void imprimirHeap(EstruturaDoHeap* h);
