@@ -19,7 +19,9 @@ void rotearFuncoes(EstruturaDoHeap* h, int repostaUsuario) {
             printf("\n\n");
             break;
         case 3: 
-            printf("\n");
+            printf("\nImprimindo a Lista Priorizada dos valores...\n\n");
+            imprimirArray(h);
+            printf("\n\nImprimindo a Lista Priorizada em formato de Heap...\n\n");
             imprimirHeap(h);
             printf("\n\n");
             break;
@@ -111,5 +113,6 @@ void imprimirHeap(EstruturaDoHeap* h) {
             contadorLinhas = contadorLinhas * 2 + contadorLinhas;
         }
     }
+    
     printf("\n");
 }
