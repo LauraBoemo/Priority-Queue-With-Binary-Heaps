@@ -41,7 +41,7 @@ EstruturaDoHeap* inicializarHeap() {
     h->size = 0;
 }
 
-void trocarElementos(int *a, int *b) {
+void inverterNosDoHeap(int *a, int *b) {
     int temp = *b;
     *b = *a;
     *a = temp;
@@ -59,7 +59,7 @@ void ordenarHeap(EstruturaDoHeap* h, int i) {
             largest = r;
         
         if (largest != i) {
-            trocarElementos(&h->heaparray[i], &h->heaparray[largest]);
+            inverterNosDoHeap(&h->heaparray[i], &h->heaparray[largest]);
             ordenarHeap(h, largest);
         }
     }
@@ -83,15 +83,16 @@ void inserirNoHeap(EstruturaDoHeap* h, int newNum) {
 
 void removerElementoDoHeap(EstruturaDoHeap* h, int num) {
     int i;
+    
     for (i = 0; i < h->size; i++) {
         if (num == h->heaparray[i])
             break;
     }
     
-    trocarElementos(&h->heaparray[i], &h->heaparray[h->size - 1]);
+    inverterNosDoHeap(&h->heaparray[i], &h->heaparray[h->size]);
     h->size -= 1;
     
-    for (int i = (((h->size)/2) - 1); i >= 0; i--) {
+    for (int i = (h->size); i >= 0; i--) {
         ordenarHeap(h, i);
     }
 }
