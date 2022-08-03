@@ -53,9 +53,9 @@ void ordenarHeap(EstruturaDoHeap* h, int i) {
         int l = 2 * i + 1;
         int r = 2 * i + 2;
         
-        if (l < h->size && h->heaparray[l] > h->heaparray[largest])
+        if (h->heaparray[l] > h->heaparray[largest])
             largest = l;
-        if (r < h->size && h->heaparray[r] > h->heaparray[largest])
+        if (h->heaparray[r] > h->heaparray[largest])
             largest = r;
         
         if (largest != i) {
@@ -74,6 +74,11 @@ void inserirNoHeap(EstruturaDoHeap* h, int newNum) {
 
     h->heaparray[h->size] = newNum;
     h->size += 1;
+    
+    
+    for (int i = (((h->size)/2) - 1); i >= 0; i--) {
+        ordenarHeap(h, i);
+    }
 }
 
 void removerElementoDoHeap(EstruturaDoHeap* h, int num) {
