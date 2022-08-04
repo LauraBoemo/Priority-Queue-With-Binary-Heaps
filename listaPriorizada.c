@@ -11,24 +11,26 @@ void rotearFuncoes(EstruturaDoHeap* h, int repostaUsuario) {
             scanf("%i", &valor);
             inserirNoHeap(h, valor);
             printf("\n\n");
-            break;
+        break;
         case 2: 
             printf("\nInforme o valor que desejas remover: ");
             scanf("%i", &valor);
             removerElementoDoHeap(h, valor);
             printf("\n\n");
-            break;
+        break;
         case 3: 
-            printf("\n");
+            printf("\nImprimindo a Lista Priorizada dos valores...\n\n");
+            imprimirArray(h);
+            printf("\n\nImprimindo a Lista Priorizada em formato de Heap...\n\n");
             imprimirHeap(h);
             printf("\n\n");
-            break;
+        break;
         case 4: 
             printf("\nO programa foi encerrado.");
-            break;
+        break;
         default:
             printf("\nInsira um valor valido!\n\n");
-            break;
+        break;
     }
 }
 
@@ -39,7 +41,7 @@ EstruturaDoHeap* inicializarHeap() {
     h->size = 0;
 }
 
-void trocarElementos(int *a, int *b) {
+void inverter(int *a, int *b) {
     int temp = *b;
     *b = *a;
     *a = temp;
@@ -57,31 +59,30 @@ void ordenarHeap(EstruturaDoHeap* h, int i) {
             largest = r;
         
         if (largest != i) {
-            trocarElementos(&h->heaparray[i], &h->heaparray[largest]);
+            inverter(&h->heaparray[i], &h->heaparray[largest]);
             ordenarHeap(h, largest);
         }
     }
 }
 
 void inserirNoHeap(EstruturaDoHeap* h, int newNum) {
-    if (h->size != 0) {
-        for (int i = (((h->size)/2) - 1); i >= 0; i--) {
-            ordenarHeap(h, i);
-        }
-    }
-
     h->heaparray[h->size] = newNum;
     h->size += 1;
+    
+    for (int i = (((h->size)/2) - 1); i >= 0; i--) {
+        ordenarHeap(h, i);
+    }
 }
 
 void removerElementoDoHeap(EstruturaDoHeap* h, int num) {
     int i;
+    
     for (i = 0; i < h->size; i++) {
         if (num == h->heaparray[i])
             break;
     }
     
-    trocarElementos(&h->heaparray[i], &h->heaparray[h->size - 1]);
+    inverter(&h->heaparray[i], &h->heaparray[h->size - 1]);
     h->size -= 1;
     
     for (int i = (((h->size)/2) - 1); i >= 0; i--) {
@@ -111,5 +112,6 @@ void imprimirHeap(EstruturaDoHeap* h) {
             contadorLinhas = contadorLinhas * 2 + contadorLinhas;
         }
     }
+    
     printf("\n");
 }
